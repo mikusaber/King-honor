@@ -1,0 +1,65 @@
+@charset "utf-8";
+.wrap {
+	position: relative;
+	left: 50%;
+	top: 50px;
+	margin-left: -250px;
+}
+#btn {
+	position: absolute;
+	left: 400px;
+	top: 500px;
+	width: 100px;
+	height: 30px;
+}
+#mp3btn {
+	position: absolute;
+	left: 000px;
+	top: 500px;
+	width: 100px;
+	height: 30px;
+}
+.map h2 {
+	width: 500px;
+	height: 500px;
+	border: 1px solid gold;
+	background: url(../images/mine.png);
+	background-size: 100%;
+	color: red;
+	font-weight: bold;
+	line-height: 500px;
+	text-align: center;
+	font-size: 40px;
+}
+.map, .map-mask {
+	position: absolute;
+	width: 500px;
+	height: 500px;
+}
+.map div, .map-mask div {
+	float: left;
+	border: 1px solid #111;
+}
+.map div {
+	text-align: center;
+}
+.map div img {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.map-mask div {
+	background: skyblue;
+	/*opacity: .9;*/
+	cursor: pointer;
+}
+.map-mask .rrr {
+	background: orange;
+}
+.map-mask div:hover {
+	border: 1px solid skyblue;
+}
+#music {
+	float: right;
+	display: none;
+}

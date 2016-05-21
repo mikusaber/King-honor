@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>miku</title>
+        <link rel="stylesheet" type="text/css" href="../css/reset.css">
+        <style type="text/css">
+          	.wrap {
+          		float: left;
+          		position: relative;
+          		margin: 150px 0 50px 200px;
+          		width: 600px;
+          		height: 400px;
+          		background: url('../images/bj.png') no-repeat;
+          	}
+          	.bj div{
+				float: left;
+				width: 100px;
+				height: 100px;
+				margin: 0 50px;
+          	}
+          	.bj {
+          		height: 400px;
+          	}
+          	.hamster div {
+          		visibility: hidden;
+          		float: left;
+				width: 100px;
+				height: 100px;
+				margin: 0 50px;
+				background: url('../images/hamster.png') 0 100px no-repeat;
+				background-size: 100% 100%; 
+          	}
+          	.hamster {
+          		position: absolute;
+          		top: 35px;
+          		left: 0;
+          		z-index: -1;
+          	}
+          	.hamster .show {
+          		visibility: visible;
+          	}
+          	#optNum {
+          		float: left;
+          		width: 50px;
+          		height: 23px;
+          		text-align: center;
+          		line-height: 23px;
+          	}
+          	.operation {
+          		float: left;
+          		margin: 150px 0 0 100px;
+          	}
+          	#btnStart {
+          		float: left;
+          	}
+          	#countdown, #fraction {
+          		margin-bottom: 10px;
+          	}
+            .music {
+              height: 50px;
+              margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+    	<div class="wrap">
+    		<div class="bj clearfix" id="bj">
+    			<div></div>
+    			<div></div>
+    			<div></div>
+    			<div></div>
+    			<div></div>
+    			<div></div>
+    			<div></div>
+    			<div></div>
+    			<div></div>
+    		</div>
+    		<div class="hamster clearfix" id="hamster">
+    			<div></div>
+    			<div></div>
+    			<div></div>
+    			<div></div>
+    			<div></div>
+    			<div></div>
+    			<div></div>
+    			<div></div>
+    			<div></div>
+    		</div>
+    	</div>
+    	
+    	<div class="operation">
+    		<div id="countdown">
+	    		时间：<span>30</span>
+	    	</div>
+	    	<div id="fraction">
+	    		分数：<span>0</span>
+	    	</div>
+    		<input type="button" id="btnStart" value="开始">
+    		<div id="optNum"></div>
+    		<input type="button" id="btn" value="下一关">
+        <div class="music">
+          <audio id='music' controls="controls" autoplay="autoplay" loop="loop" src="../music/happy.mp3">
+          </audio>
+        </div>
+    	</div>
+    	<div id="bos"></div>
+        <script type="text/javascript"> 
+        	var bj = document.getElementById('bj');
+        	var hamster = document.getElementById('hamster');
+		    var boxWidth = 300,
+		        levelNum = 0,
+		        levelArr = [3, 4, 5, 6, 7];
+
+    		var hamChild = hamster.children;
+    		var hamChildLens = hamChild.length; 
+
+        	var bjChild = bj.children;
+        	var bjChildLen = bjChild.length;
+
+        	var timer = null;
+        	var timer1 = null;
+        	var timer2 = null;
+
+		    var btn = document.getElementById('btn');
+		    var btnStart = document.getElementById('btnStart');
+		    var optNum = document.getElementById('optNum');
+		    var countdown = document.getElementById('countdown').children;
+
+		    var appTime = 0;
+		    var	levelArr = [3000, 2000, 1000, 500];
+		    var levelNum = 0;
+
+
+		  	var fraNum = 0;
+		  	var mlseO = 0;
+		    var seconO = 0;
+		    btn.onclick = function() {
+		        levelNum++;
+		        if (levelNum == levelArr.length) {
+		        };
+		        if (levelNum > levelArr.length) {
+		            levelNum = 0;
+		        }
+		    }
+		    btnStart.onclick = function() {
+		    	mlseO = 0;
+		    	seconO = 30;
+		    	if (timer) {
+        			clearInterval(timer);
+        		}
+        		if (timer2) {
+        			clearInterval(timer2);
+        		}
+		    	optNum.innerHTML = '第' + (levelNum + 1) + '关';
+		    	timer = setInterval(appeared, levelArr[levelNum]);
+		    	timer2 = setInterval(function() {
+        			if(mlseO == 0) {
+						mlseO = 11; 
+						seconO--;
+						if(seconO == 0) {
+							mlseO--;
+						}
+					} else if (seconO <= 0) {
+						clearInterval(timer2);
+						clearInterval(timer);
+						mlseO = 1;
+						seconO = 0;
+						for (var i = 0; i < hamChildLens; i++) {
+		        			hamChild[i].className = '';
+		        		}
+					}
+					mlseO--;
+					countdown[0].innerHTML = seconO;
+					if (seconO <= 0) {
+						if (fraNum >= 10) {
+							if (timer) {
+			        			clearInterval(timer);
+			        		}
+			        		if (timer1) {
+			        			clearInterval(timer1);
+			        		}
+			        		if (levelNum >= 2) {
+			        			levelNum = 2;
+			        		}
+							fraNum = 0;
+							mlseO = 0;
+		    				seconO = 29;
+							fraction[0].innerHTML = fraNum;
+							countdown[0].innerHTML = seconO;
+							levelNum++;
+							optNum.innerHTML = '第' + (levelNum + 1) + '关';
+							timer = setInterval(appeared, levelArr[levelNum]);
+						}
+						else {
+							clearInterval(timer2);
+							clearInterval(timer1);
+							clearInterval(timer);
+							alert('你输了');
+						}
+
+					}
+        		}, 100);
+		    }
+
+		    var fraction = document.getElementById('fraction').children;
+		    
+		    var timer3 = null;
+        	function appeared() {
+        		if (timer1) {
+        			clearInterval(timer1);
+        		}
+				var satrtVal = 100;
+				var step = 15;
+				var ranNum = Math.floor(Math.random() * 9);
+        		for (var i = 0; i < hamChildLens; i++) {
+        			hamChild[i].className = '';
+        		}
+        		hamster.style.zIndex = 999;
+        		hamChild[ranNum].className = 'show';
+        		timer1 = setInterval(function() {
+        			satrtVal = satrtVal - step;
+					if (step < 0) {
+						if (satrtVal >= 100) {
+	        				satrtVal = 100;
+		        		}
+					}
+					if (step > 0) {
+						if (satrtVal <= 0) {
+		        			satrtVal = 0;
+		        		}
+					}
+        			hamChild[ranNum].style.backgroundPosition = '0 ' + satrtVal + 'px';
+        		}, 30);
+        		hamChild[ranNum].onclick = function () {
+        			if (timer1) {
+	        			clearInterval(timer1);
+	        		}
+        			var step = -15;
+        			fraNum ++;
+        			fraction[0].innerHTML = fraNum;
+        			timer1 = setInterval(function() {
+        			satrtVal = satrtVal - step;
+					if (step < 0) {
+						if (satrtVal >= 100) {
+	        				satrtVal = 100;
+		        		}
+					}
+					if (step > 0) {
+						if (satrtVal <= 0) {
+		        			satrtVal = 0;
+		        		}
+					}
+        			hamChild[ranNum].style.backgroundPosition = '0 ' + satrtVal + 'px';
+        		}, 30);
+        		}
+        	}
+        </script> 
+    </body>
+</html>
