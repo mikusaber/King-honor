@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>miku</title>
+        <link rel="stylesheet" type="text/css" href="css/reset.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <style type="text/css">
+         	
+        </style>
+    </head>
+    <body>
+    	<div id="lineChart">
+    		<span class="line-tit">各城市温度调查表</span>
+			<span class="ver-coo-tit">温度(°C)</span>
+    		<div id="graph">
+    			<p class="vertical">
+    			</p>
+    			<p class="horizontal">
+    			</p>
+    		</div>
+    	</div>
+    	
+        <script type="text/javascript"> 
+        	$(function() {
+        		init();
+        		AxisY1 = [13, 20, 30, 23, 35, -1, 5, 6];
+        		genCity('beijing', 'points' , '#0ff', AxisY1, 'canvas1');
+				AxisY2 = [33, 35, 20, 23, 29, 6, 10, 0];
+        		genCity('fuzhou', 'points2' , 'red', AxisY2, 'canvas2');
+        		AxisY3 = [33, 22, 11, 13, 33, 0, 22, 2];
+        		genCity('shanghai', 'points3' , 'orange', AxisY3, 'canvas3');
+        		// init('city2', 'points2' , 'red');
+        	})
+        	
+        </script> 
+    </body>
+</html>

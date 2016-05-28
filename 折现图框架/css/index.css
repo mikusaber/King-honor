@@ -1,0 +1,53 @@
+#lineChart {
+	position: relative;
+	width: 900px;
+	height: 400px;
+	margin: 50px auto;
+}
+.line-tit, .ver-coo-tit {
+	position: relative;
+	font-weight: bold;
+}
+.line-tit {
+	padding-top: 15px;
+	margin: 0 auto;
+	font-size: 18px;
+}
+.ver-coo-tit {
+	float: left;
+	left: 10px;
+	width: 25px;
+}
+#graph {
+	position: relative;
+	top: 30px;
+	left: 70px;
+	width: 700px;
+	height: 300px;
+}
+.vertical {
+	position: relative;
+	top: 0;
+	left: -30px;
+	width: 24px;
+	height: 300px;
+}
+.vertical em {
+	float: left;
+	position: absolute;
+	left: 0;
+	width: 100%;
+	text-align: right;
+}
+.horizontal {
+	position: relative;
+	bottom: -14px;
+	width: 100%;
+}
+.horizontal em {
+	float: left;
+	text-align: center;
+}
+
+
+
